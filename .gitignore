@@ -1,0 +1,69 @@
+##########################
+# CLion / IntelliJ
+##########################
+.idea/
+cmake-build-*/
+out/
+*.iml
+
+##########################
+# CMake
+##########################
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+*.make
+*.ninja
+*.ninja_deps
+*.ninja_log
+CTestTestfile.cmake
+
+##########################
+# Compiler outputs
+##########################
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+*.exe
+*.pdb
+*.ilk
+*.idb
+
+##########################
+# SDL
+##########################
+# If you DO NOT want to commit SDL2.dll (recommended)
+SDL2.dll
+SDL2main.dll
+SDL2_test.dll
+
+##########################
+# Debug / Release folders
+##########################
+Debug/
+Release/
+x64/
+bin/
+lib/
+
+##########################
+# OS-specific junk
+##########################
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*.swp
+*.swo
