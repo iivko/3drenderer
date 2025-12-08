@@ -9,6 +9,7 @@ set(SDL2_PATH "C:/SDL2-2.0.12/x86_64-w64-mingw32")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-add_executable(3drenderer main.c)
+file(GLOB SRC_FILES *.c)
+add_executable(3drenderer ${SRC_FILES})
 
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY})
