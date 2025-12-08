@@ -13,8 +13,8 @@ SDL_Renderer *renderer = NULL;
 uint32_t *color_buffer = NULL;
 SDL_Texture *color_buffer_texture = NULL;
 
-int window_width = 800;
-int window_height = 600;
+int window_width;
+int window_height;
 
 
 bool initialize_window(void) {
@@ -22,6 +22,16 @@ bool initialize_window(void) {
         fprintf(stderr, "Error initializing SDL: %s\n", SDL_GetError());
         return false;
     }
+
+    // Use SDL to query what is the fullscreen max. Width and Height
+    SDL_DisplayMode display_mode;
+    if (SDL_GetCurrentDisplayMode(0, &display_mode) != 0) {
+        fprintf(stderr, "Error getting display mode: %s\n", SDL_GetError());
+        return false;
+    }
+
+    window_width = display_mode.w;
+    window_height = display_mode.h;
 
     // Create a SDL Window
     window = SDL_CreateWindow(
@@ -41,11 +51,12 @@ bool initialize_window(void) {
 
     // Create an SDL renderer
     renderer = SDL_CreateRenderer(window, -1, 0);
-
     if (!renderer) {
         fprintf(stderr, "Error creating SDL Renderer: %s\n", SDL_GetError());
         return false;
     }
+
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     return true;
 }
@@ -99,6 +110,22 @@ void update(void) {
     // TODO:
 }
 
+void draw_grid(void) {
+    int gap = 10;
+
+    int rows = window_height / gap;
+    int cols = window_width / gap;
+    // SDL_Log("Rows: %d", rows);
+    // SDL_Log("Cols: %d", cols);
+
+
+    for (int y = 0; y < rows; y++) {
+        for (int x = 0; x < cols; x++) {
+            color_buffer[(window_width * (y * gap) + x * gap)] = 0x808080FF;
+        }
+    }
+}
+
 void render_color_buffer(void) {
     SDL_UpdateTexture(
         color_buffer_texture,
@@ -130,8 +157,10 @@ void render(void) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
+    draw_grid();
+
     render_color_buffer();
-    clear_color_buffer(0xFFFFFF00);
+    clear_color_buffer(0xFF000000);
 
     SDL_RenderPresent(renderer);
 }
@@ -139,7 +168,7 @@ void render(void) {
 void destroy_window(void) {
     free(color_buffer);
 
-    SDL_DestroyRenderer(render);
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
