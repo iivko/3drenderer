@@ -64,6 +64,7 @@ void render(void) {
 
     draw_grid();
     draw_rectangle(100, 200, 300, 150, 0xFFFF00FF);
+    draw_pixel(20, 20, 0xFFFFFF00);
 
     render_color_buffer();
     clear_color_buffer(0xFF000000);
@@ -77,7 +78,6 @@ int main(int argc, char *argv[]) {
 
     /* Game loop */
     setup();
-
     while (is_running) {
         process_input();
         update();

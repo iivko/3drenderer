@@ -78,6 +78,12 @@ void draw_grid(void) {
     }
 }
 
+void draw_pixel(int x, int y, uint32_t color) {
+    if (x < window_width && y < window_height) {
+        color_buffer[(window_width * y) + x] = color;
+    }
+}
+
 void draw_rectangle(int x_cor, int y_cor, int width, int height, uint32_t color) {
     if (x_cor > window_width || y_cor > window_height) {
         SDL_Log("Out of bounds\n");
