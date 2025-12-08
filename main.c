@@ -119,11 +119,21 @@ void draw_grid(void) {
     // SDL_Log("Cols: %d", cols);
 
 
+    // for (int y = 0; y < window_height; y++) {
+    //     for (int x = 0; x < window_width; x++) {
+    //         if (x % gap == 0 || y % gap == 0) {
+    //             color_buffer[(window_width * y) + x] = 0x808080FF;
+    //         }
+    //     }
+    // }
+
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < cols; x++) {
             color_buffer[(window_width * (y * gap) + x * gap)] = 0x808080FF;
         }
     }
+
+
 }
 
 void render_color_buffer(void) {
