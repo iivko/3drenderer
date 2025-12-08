@@ -132,8 +132,18 @@ void draw_grid(void) {
             color_buffer[(window_width * (y * gap) + x * gap)] = 0x808080FF;
         }
     }
+}
 
+void draw_rectangle(int x_cor, int y_cor, int width, int height, uint32_t color) {
+    if (x_cor > window_width || y_cor > window_height) {
+        SDL_Log("Out of bounds\n");
+    }
 
+    for (int y = y_cor; y < y_cor + height; y++) {
+        for (int x = x_cor; x < x_cor + width; x++) {
+            color_buffer[(window_width * y) + x] = color;
+        }
+    }
 }
 
 void render_color_buffer(void) {
@@ -168,6 +178,7 @@ void render(void) {
     SDL_RenderClear(renderer);
 
     draw_grid();
+    draw_rectangle(1900, 200, 300, 150, 0xFFFF00FF);
 
     render_color_buffer();
     clear_color_buffer(0xFF000000);
